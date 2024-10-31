@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  core:
+    build: backend
+    volumes:
+      - static_volume:/app/static/
+      - media_volume:/app/media/
+    entrypoint: ["sh", "entrypoint.sh"]
+    ports:
+      - "8000"
+    env_file:
+      - .env
+
+  frontend:
+    build: frontend
+    volumes:
+      - frontend-build_volume:/app/build
+    command: npm run local-docker --prod
+
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+      - frontend-build_volume:/usr/share/nginx/html
+    depends_on:
+      - core
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+  frontend-build_volume:

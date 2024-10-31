@@ -1,0 +1,28 @@
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--header-background);
+  z-index: var(--zindex-sticky);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 22px 32px 18px 32px;
+  max-width: 1440px;
+}
+
+.link {
+  width: 120px;
+}
+
+.image {
+  width: 100%;
+}
+
+.main {
+  position: relative;
+}

@@ -1,0 +1,90 @@
+@font-face {
+  font-family: "Segoe UI";
+  src: local("SegoeUI-Regular"), url("./assets/fonts/SegoeUI-Regular.woff2") format("woff2"), url("./assets/fonts/SegoeUI-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Segoe UI";
+  src: local("SegoeUI-Bold"), url("./assets/fonts/SegoeUI-Bold.woff2") format("woff2"), url("./assets/fonts/SegoeUI-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: local("Inter-Regular"), url("./assets/fonts/Inter-Regular.woff2") format("woff2"), url("./assets/fonts/Inter-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: local("Inter-SemiBold"), url("./assets/fonts/Inter-SemiBold.woff2") format("woff2"), url("./assets/fonts/Inter-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --primary-color:                #FFFFFF;
+  --secondary-color:              #0C0C0C;
+  --optional-text-color:          #999999;
+
+  --header-background:            #191B1E;
+  --panel-background:             #272A2F;
+  --slider-background:            #D9D9D9;
+  --circle-high-background:       #56D941;
+  --circle-middle-background:     #D9D941;
+  --circle-low-background:        #D94141;
+  --item-hover-background:        #838383;
+
+  --leaflet-tiles-filter:           brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.6) brightness(0.8);
+
+  --zindex-dropdown:                1000;
+  --zindex-sticky:                  1020;
+  --zindex-fixed:                   1030;
+  --zindex-modal-backdrop:          1040;
+  --zindex-modal:                   1050;
+  --zindex-popover:                 1060;
+  --zindex-tooltip:                 1070;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+input {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+}
