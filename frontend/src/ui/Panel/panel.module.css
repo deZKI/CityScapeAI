@@ -1,6 +1,6 @@
 .panel {
   position: absolute;
-  top: 151px;
+  top: 84px;
   left: 16px;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@
   border-radius: 16px;
   width: 352px;
   height: 100%;
-  max-height: calc(100% - 166px);
+  max-height: calc(100% - 100px);
   background-color: var(--panel-background);
   z-index: var(--zindex-fixed);
 }
