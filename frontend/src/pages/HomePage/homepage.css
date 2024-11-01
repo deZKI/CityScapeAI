@@ -6,7 +6,7 @@
   z-index: var(--zindex-sticky);
 }
 
-.wrapper {
+.header__container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,11 +15,11 @@
   max-width: 1440px;
 }
 
-.link {
+.header__link {
   width: 120px;
 }
 
-.image {
+.header__image {
   width: 100%;
 }
 

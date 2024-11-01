@@ -1,10 +1,10 @@
-.container {
+.panel__header__container {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
-.title {
+.panel__header__title {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
   font-size: 20px;
@@ -15,25 +15,11 @@
   white-space: nowrap;
 }
 
-.subtitle {
+.panel__header__subtitle {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 19px;
   color: var(--optional-text-color);
-}
-
-.close {
-  cursor: pointer;
-}
-
-.close svg path {
-  transition: stroke .3s ease;
-}
-
-.close:hover svg path,
-.close:active svg path,
-.close:focus svg path {
-  stroke: var(--item-hover-background);
 }
