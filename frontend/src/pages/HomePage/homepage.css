@@ -1,28 +1,3 @@
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: var(--header-background);
-  z-index: var(--zindex-sticky);
-}
-
-.header__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  padding: 22px 32px 18px 32px;
-  max-width: 1440px;
-}
-
-.header__link {
-  width: 120px;
-}
-
-.header__image {
-  width: 100%;
-}
-
 .main {
   position: relative;
 }
