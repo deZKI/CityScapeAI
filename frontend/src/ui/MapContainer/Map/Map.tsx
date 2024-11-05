@@ -17,7 +17,7 @@ type TProps = {
 
 export default function Map({ data, style, createHighlightFeature, createResetHighlight, createZoomToFeature }: TProps) {
   return (
-    <LeafletMapContainer className="leaflet" center={[55.751244, 37.618423]} zoom={9}>
+    <LeafletMapContainer className="leaflet" center={[55.61244, 37.508423]} zoom={9}>
       <TileLayer
         className="leaflet__tiles"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
