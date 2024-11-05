@@ -44,7 +44,7 @@
   --item-hover-background:          #838383;
 
   --leaflet-tiles-filter:           brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.6) brightness(0.8);
-  --bar-linear-gradient:            linear-gradient(90.00deg, #D94141, #D9D941 50%, #56D941 100%);
+  --bar-linear-gradient:            linear-gradient(90.00deg, var(--low-availability-background), var(--middle-availability-background) 50%, var(--high-availability-background) 100%);
 
   --zindex-dropdown:                1000;
   --zindex-sticky:                  1020;
