@@ -2,7 +2,7 @@ import React from 'react';
 import './mapcontainer.css';
 import {PathOptions, LeafletMouseEvent, GeoJSON as LeafletGeoJSON} from 'leaflet';
 import {getRandomGradientColor} from "../../utils/getRandomGradientColor";
-import GeoData from "../../assets/geo_data/geo2.json";
+import GeoData from "../../assets/geo_data/geo.json";
 import {Feature, FeatureCollection} from "geojson";
 import * as L from "leaflet";
 import Map from './Map/Map';
