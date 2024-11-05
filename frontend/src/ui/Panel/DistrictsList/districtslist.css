@@ -1,0 +1,23 @@
+.panel__content__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 12px 0;
+  width: 100%;
+}
+
+.panel__content__item {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  color: var(--primary-color);
+}
+
+.panel__content__button {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: var(--primary-color);
+}

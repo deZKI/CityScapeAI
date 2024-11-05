@@ -1,12 +1,13 @@
 import React from 'react';
 import './availability.css';
+import {TPanelStyles} from "../../../types/TPanelStyles.type";
 import Panel from "../Panel";
 
 export default function Availability() {
-  const position = { right: '16px', bottom: '16px', width: '258px' }
+  const styles: TPanelStyles = { right: '16px', bottom: '16px', padding: '16px', width: '258px' }
 
   return (
-    <Panel title='Доступность' subtitle='услов.ед' position={position}>
+    <Panel title='Доступность' subtitle='услов.ед' styles={styles}>
       <div className='panel__content__units'>
         <span className='panel__content__unit'>&gt; 225</span>
         <span className='panel__content__unit'>276</span>

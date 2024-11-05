@@ -89,3 +89,16 @@ input {
   background: transparent;
   outline: none;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--panel-background);
+}

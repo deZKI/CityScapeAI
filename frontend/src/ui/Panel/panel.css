@@ -2,10 +2,8 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 16px;
+  gap: 20px;;
   border-radius: 20px;
-  max-height: calc(100% - 32px);
   background-color: var(--panel-background);
   z-index: var(--zindex-fixed);
 }
@@ -16,4 +14,8 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
+}
+
+.panel__content {
+  overflow-y: scroll;
 }
