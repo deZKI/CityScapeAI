@@ -1,0 +1,70 @@
+.panel__menu {
+  display: flex;
+  width: 100%;
+}
+
+.panel__menu__list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.panel__menu__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 10px;
+  border: transparent;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  color: transparent;
+  background-color: transparent;
+  transition: all .3s ease;
+}
+
+.panel__menu__button--all {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.panel__menu__button--all--active,
+.panel__menu__button--all:hover {
+  color: var(--panel-background);
+  background-color: var(--primary-color);
+}
+
+.panel__menu__button--high {
+  border: 1px solid var(--high-availability-background);
+  color: var(--high-availability-background);;
+}
+
+.panel__menu__button--high--active,
+.panel__menu__button--high:hover {
+  color: var(--panel-background);
+  background-color: var(--high-availability-background);
+}
+
+.panel__menu__button--medium {
+  border: 1px solid var(--medium-availability-background);
+  color: var(--medium-availability-background);
+}
+
+.panel__menu__button--medium--active,
+.panel__menu__button--medium:hover {
+  color: var(--panel-background);
+  background-color: var(--medium-availability-background);
+}
+
+.panel__menu__button--low {
+  border: 1px solid var(--low-availability-background);
+  color: var(--low-availability-background);
+}
+
+.panel__menu__button--low--active,
+.panel__menu__button--low:hover {
+  color: var(--primary-color);
+  background-color: var(--low-availability-background);
+}

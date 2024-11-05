@@ -1,4 +1,4 @@
-import { TCoverageTypes } from "../types/TCoverage.type";
+import { TCoverageTypes } from "../types/types/TCoverage.type";
 
 export const defineTypeOfCoverage = (type: TCoverageTypes): string => {
   const typeTextMap = {
