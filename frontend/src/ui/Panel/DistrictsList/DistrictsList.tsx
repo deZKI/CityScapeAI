@@ -7,7 +7,7 @@ import Panel from "../Panel";
 
 export default function DistrictsList() {
   const styles: TPanelStyles = {
-    top: '16px',
+    top: '82px',
     bottom: '16px',
     left: '16px',
     width: '316px',

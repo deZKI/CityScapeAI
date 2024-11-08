@@ -1,0 +1,43 @@
+.mode {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 16px;
+  width: 316px;
+  background-color: var(--panel-background);
+  z-index: var(--zindex-fixed);
+}
+
+.mode__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 10px;
+  width: 100%;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 27px;
+  color: var(--primary-color);
+  background-color: transparent;
+  transition: all .3s ease;
+}
+
+.mode__button:hover,
+.mode__button--active {
+  color: var(--header-background);
+  background-color: var(--primary-color);
+}
+
+.mode__button__polygons {
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+.mode__button__heat {
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
