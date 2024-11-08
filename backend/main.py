@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from dotenv import load_dotenv
 
+from routers.features import router
+
 load_dotenv()
 
 app = FastAPI(docs_url='/api/swagger')
@@ -19,3 +21,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(router)
