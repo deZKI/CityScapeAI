@@ -8,14 +8,6 @@
   z-index: var(--zindex-fixed);
 }
 
-.panel__header {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-
 .panel__content {
   overflow-y: scroll;
 }

@@ -1,0 +1,14 @@
+.panel__content__switcher {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel__content__text {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 27px;
+  color: var(--primary-color);
+}

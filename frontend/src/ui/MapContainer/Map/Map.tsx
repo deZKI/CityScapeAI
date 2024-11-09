@@ -4,6 +4,7 @@ import './map.css';
 import {LeafletMouseEventHandlerFn, PathOptions, StyleFunction} from "leaflet";
 import {MapContainer as LeafletMapContainer, TileLayer} from 'react-leaflet';
 import {EModeSwitcher} from "../../../types/enums/EModeSwitcher.enum";
+import CustomCursor from "../../CustomCursor/CustomCursor";
 import PolygonsLayer from "./PolygonsLayer/PolygonsLayer";
 import HeatmapLayer from "./HeatmapLayer/HeatmapLayer";
 import {GeoJsonObject} from "geojson";

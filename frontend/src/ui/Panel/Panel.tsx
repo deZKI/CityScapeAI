@@ -5,14 +5,15 @@ import {TPanelStyles} from "../../types/types/TPanelStyles.type";
 import Menu from "./Menu/Menu";
 
 type TProps = {
-  title: string;
+  title?: string;
   subtitle?: string;
+  showTitle: boolean;
   showMenu: boolean;
   styles: TPanelStyles;
   children: React.ReactNode;
 }
 
-export default function Panel({ title, subtitle, showMenu, styles, children }: TProps) {
+export default function Panel({ title, subtitle, showTitle, showMenu, styles, children }: TProps) {
   return (
     <div className='panel' style={{
       top: styles.top,
@@ -23,9 +24,7 @@ export default function Panel({ title, subtitle, showMenu, styles, children }: T
       width: styles.width,
       maxHeight: `calc(100% - ${styles.maxHeight})`
     }}>
-      <div className='panel__header'>
-        <Title title={title} subtitle={subtitle} />
-      </div>
+      <Title title={title} showTitle={showTitle} subtitle={subtitle} />
       <Menu showMenu={showMenu} />
       <div className='panel__content'>
         {children}

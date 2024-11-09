@@ -1,3 +1,11 @@
+.panel__header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
 .panel__header__container {
   display: flex;
   justify-content: space-between;

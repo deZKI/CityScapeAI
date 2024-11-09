@@ -18,7 +18,7 @@ export default function DistrictsList() {
   const data: FeatureCollection = GeoData as FeatureCollection;
 
   return (
-    <Panel title='Районы' subtitle='по доступности' showMenu={true} styles={styles}>
+    <Panel title='Районы' subtitle='по доступности' showTitle={true} showMenu={true} styles={styles}>
       <ul className='panel__content__list'>
         {data.features.map((item) =>
           <li className='panel__content__item' key={item.properties?.NAME}>
