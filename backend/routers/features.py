@@ -52,7 +52,7 @@ async def get_traffic_data():
 async def get_infrastructure_map_data(
         population_year: int = 2024,
         building_type: str = "school",
-        grid_size: int = 100,
+        grid_size: int = 25,
         buffer_distance: float = 500.0
 ):
     """
