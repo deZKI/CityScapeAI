@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException
 
 from models.district_request import DistrictRequest
 from services.pedestrian_flow_predictor import PedestrianFlowPredictor
+from services.traffic import fetch_traffic_data
 
 router = APIRouter()
 
@@ -31,3 +32,13 @@ def predict_pedestrian_flow(request: DistrictRequest):
         raise HTTPException(status_code=400, detail=str(e))
 
     return result.to_dict(orient='records')
+
+
+@router.get("/traffic-data/")
+async def get_traffic_data():
+    """
+    Асинхронный эндпоинт для получения данных трафика.
+    Данные получаются из внешнего API с использованием aiohttp.
+    """
+    data = await fetch_traffic_data()
+    return data
