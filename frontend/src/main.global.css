@@ -36,14 +36,14 @@
   --optional-text-color:            #999999;
 
   --header-background:              #191B1E;
-  --panel-background:               #272A2F;
+  --panel-background:               #111111;
   --slider-background:              #D9D9D9;
   --high-availability-background:   #56D941;
   --medium-availability-background: #D9D941;
   --low-availability-background:    #D94141;
   --item-hover-background:          #838383;
 
-  --leaflet-tiles-filter:           brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.6) brightness(0.8);
+  --leaflet-tiles-filter:           brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(1) brightness(0.6);
   --bar-linear-gradient:            linear-gradient(90.00deg, var(--low-availability-background), var(--medium-availability-background) 50%, var(--high-availability-background) 100%);
 
   --zindex-dropdown:                1000;

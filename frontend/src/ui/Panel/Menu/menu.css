@@ -65,6 +65,6 @@
 
 .panel__menu__button--low--active,
 .panel__menu__button--low:hover {
-  color: var(--primary-color);
+  color: var(--panel-background);
   background-color: var(--low-availability-background);
 }

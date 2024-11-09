@@ -2,12 +2,16 @@ import React from 'react';
 import './mapcontainer.css';
 import {PathOptions, LeafletMouseEvent, GeoJSON as LeafletGeoJSON} from 'leaflet';
 import {getRandomGradientColor} from "../../utils/getRandomGradientColor";
-import GeoData from "../../assets/geo_data/geo.json";
+import {EModeSwitcher} from "../../types/enums/EModeSwitcher.enum";
+import GeoData from "../../assets/geo_data/polygons.json";
 import {Feature, FeatureCollection} from "geojson";
+import {TInitialState} from "../../store/reducer";
+import {useSelector} from "react-redux";
 import * as L from "leaflet";
 import Map from './Map/Map';
 
 export default function MapContainer() {
+  const modeSwitcher = useSelector<TInitialState, EModeSwitcher>(state => state.modeSwitcher.modeSwitcher);
   const data: FeatureCollection = GeoData as FeatureCollection;
 
   const style = (feature: Feature | undefined): PathOptions => ({
@@ -52,6 +56,7 @@ export default function MapContainer() {
     <Map
       data={data}
       style={style}
+      modeSwitcher={modeSwitcher}
       createHighlightFeature={createHighlightFeature}
       createResetHighlight={createResetHighlight}
       createZoomToFeature={createZoomToFeature}

@@ -12,7 +12,7 @@ type TProps = {
   createZoomToFeature: (map: L.Map) => LeafletMouseEventHandlerFn | undefined;
 };
 
-export default function GeoJSONLayer({ data, style, createHighlightFeature, createResetHighlight, createZoomToFeature }: TProps) {
+export default function PolygonsLayer({ data, style, createHighlightFeature, createResetHighlight, createZoomToFeature }: TProps) {
   const map = useMap();
 
   const onEachFeature: GeoJSONProps['onEachFeature'] = (feature, layer) => {
