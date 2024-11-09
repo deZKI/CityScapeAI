@@ -4,7 +4,6 @@ import './map.css';
 import {LeafletMouseEventHandlerFn, PathOptions, StyleFunction} from "leaflet";
 import {MapContainer as LeafletMapContainer, TileLayer} from 'react-leaflet';
 import {EModeSwitcher} from "../../../types/enums/EModeSwitcher.enum";
-import CustomCursor from "../../CustomCursor/CustomCursor";
 import PolygonsLayer from "./PolygonsLayer/PolygonsLayer";
 import HeatmapLayer from "./HeatmapLayer/HeatmapLayer";
 import {GeoJsonObject} from "geojson";
@@ -14,6 +13,7 @@ type TProps = {
   data: GeoJsonObject;
   style: PathOptions | StyleFunction | undefined;
   modeSwitcher: EModeSwitcher;
+  markSwitcher: boolean;
   createHighlightFeature: (map: L.Map) => LeafletMouseEventHandlerFn | undefined;
   createResetHighlight: (map: L.Map) => LeafletMouseEventHandlerFn | undefined;
   createZoomToFeature: (map: L.Map) => LeafletMouseEventHandlerFn | undefined;
@@ -23,6 +23,7 @@ export default function Map({
   data,
   style,
   modeSwitcher,
+  markSwitcher,
   createHighlightFeature,
   createResetHighlight,
   createZoomToFeature
@@ -38,6 +39,7 @@ export default function Map({
         ? <PolygonsLayer
             data={data}
             style={style}
+            markSwitcher={markSwitcher}
             createHighlightFeature={createHighlightFeature}
             createResetHighlight={createResetHighlight}
             createZoomToFeature={createZoomToFeature}

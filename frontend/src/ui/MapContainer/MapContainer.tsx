@@ -1,6 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import './mapcontainer.css';
-import {PathOptions, LeafletMouseEvent, GeoJSON as LeafletGeoJSON, map} from 'leaflet';
+import {PathOptions, LeafletMouseEvent, GeoJSON as LeafletGeoJSON} from 'leaflet';
 import {getRandomGradientColor} from "../../utils/getRandomGradientColor";
 import {EModeSwitcher} from "../../types/enums/EModeSwitcher.enum";
 import GeoData from "../../assets/geo_data/polygons.json";
@@ -25,8 +25,6 @@ export default function MapContainer() {
   });
 
   const createHighlightFeature = (map: L.Map) => (e: LeafletMouseEvent): void => {
-    if (markSwitcher) return;
-
     const layer = e.target as LeafletGeoJSON;
 
     layer.setStyle({
@@ -42,8 +40,6 @@ export default function MapContainer() {
   };
 
   const createResetHighlight = (map: L.Map) => (e: LeafletMouseEvent): void => {
-    if (markSwitcher) return;
-
     const layer = e.target as LeafletGeoJSON;
     const feature = layer.feature as Feature | undefined;
 
@@ -51,8 +47,6 @@ export default function MapContainer() {
   };
 
   const createZoomToFeature = (map: L.Map) => (e: LeafletMouseEvent): void => {
-    if (markSwitcher) return;
-
     const layer = e.target as LeafletGeoJSON;
     const bounds = layer.getBounds();
 
@@ -64,6 +58,7 @@ export default function MapContainer() {
       data={data}
       style={style}
       modeSwitcher={modeSwitcher}
+      markSwitcher={markSwitcher}
       createHighlightFeature={createHighlightFeature}
       createResetHighlight={createResetHighlight}
       createZoomToFeature={createZoomToFeature}

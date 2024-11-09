@@ -112,11 +112,10 @@ input {
   margin-right: 15px;
 }
 
-/* Change cursor when mousing over clickable layer */
-.leaflet-clickable {
-  cursor: url('./assets/images/mark.cur') 10 10, auto !important;
+.custom-cursor {
+  cursor: url('assets/images/mark.png') 10 10, auto !important;
 }
-/* Change cursor when over entire map */
-.leaflet-container {
-  cursor: url('./assets/images/mark.cur') 10 10, auto !important;
+
+.custom-cursor .leaflet-interactive {
+  cursor: url('assets/images/mark.png') 10 10, auto !important;
 }

@@ -73,3 +73,11 @@
 .leaflet-popup-close-button span:hover {
   color: var(--optional-text-color);
 }
+
+/*.leaflet-clickable {*/
+/*  cursor: url('../../../assets/images/mark.cur') 10 10, auto !important;*/
+/*}*/
+
+/*.leaflet-container {*/
+/*  cursor: url('../../../assets/images/mark.cur') 10 10, auto !important;*/
+/*}*/
