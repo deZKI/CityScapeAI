@@ -3,7 +3,7 @@ import './mapcontainer.css';
 import {PathOptions, LeafletMouseEvent, GeoJSON as LeafletGeoJSON} from 'leaflet';
 import {getRandomGradientColor} from "../../utils/getRandomGradientColor";
 import {EModeSwitcher} from "../../types/enums/EModeSwitcher.enum";
-import GeoData from "../../assets/geo_data/polygons.json";
+import GeoData from "../../assets/geoData/polygons.json";
 import {Feature, FeatureCollection} from "geojson";
 import {TInitialState} from "../../store/reducer";
 import {useSelector} from "react-redux";

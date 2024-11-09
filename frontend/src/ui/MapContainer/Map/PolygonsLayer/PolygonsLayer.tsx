@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
-import {Layer, LeafletMouseEventHandlerFn, PathOptions, StyleFunction} from "leaflet";
-import {GeoJSON, GeoJSONProps, useMap} from "react-leaflet";
-import {Feature, GeoJsonObject, Geometry} from "geojson";
+import {useEffect} from "react";
+import {LeafletMouseEventHandlerFn, PathOptions, StyleFunction} from "leaflet";
+import {GeoJsonObject} from "geojson";
+import {useMap} from "react-leaflet";
 import * as L from "leaflet";
 
 type TProps = {
@@ -43,7 +43,6 @@ export default function PolygonsLayer({
 
     map.addLayer(geoJsonLayer);
 
-    // Update cursor styles based on markSwitcher using L.DomUtil
     const mapContainer = map.getContainer();
     if (markSwitcher) {
       L.DomUtil.addClass(mapContainer, "custom-cursor");

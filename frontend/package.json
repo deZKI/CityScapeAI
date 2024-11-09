@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_API_URL=http://localhost:8000/api react-scripts start",
     "local-docker": "REACT_APP_API_URL=http://95.163.229.215/api react-scripts build",
     "prod": "REACT_APP_API_URL=http://95.163.229.215/api react-scripts build"
   },

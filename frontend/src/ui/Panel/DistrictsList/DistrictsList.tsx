@@ -1,7 +1,7 @@
 import React from 'react';
 import './districtslist.css';
 import {TPanelStyles} from "../../../types/types/TPanelStyles.type";
-import GeoData from "../../../assets/geo_data/polygons.json";
+import GeoData from "../../../assets/geoData/polygons.json";
 import {FeatureCollection} from "geojson";
 import Panel from "../Panel";
 

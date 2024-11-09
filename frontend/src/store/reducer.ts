@@ -1,9 +1,13 @@
 import {SET_ACTIVE_AVAILABILITY, SetActiveAvailabilityAction} from "./activeAvailability/activeAvailabilityActions";
 import {activeAvailabilityReducer, TActiveAvailabilityState} from "./activeAvailability/activeAvailabilityReducer";
+import {SET_HEATMAP_LOADING, SetHeatmapLoadingAction} from "./heatmapLoading/heatmapLoadingActions";
+import {heatmapLoadingReducer, THeatmapLoadingState} from "./heatmapLoading/heatmapLoadingReducer";
 import {SET_MARK_SWITCHER, SetMarkSwitcherAction} from "./markSwitcher/markSwitcherActions";
 import {SET_MODE_SWITCHER, SetModeSwitcherAction} from "./modeSwitcher/modeSwitcherActions";
 import {modeSwitcherReducer, TModeSwitcherState} from "./modeSwitcher/modeSwitcherReducer";
 import {markSwitcherReducer, TMarkSwitcherState} from "./markSwitcher/markSwitcherReducer";
+import {SET_HEATMAP_DATA, SetHeatmapDataAction} from "./heatmapData/headmapDataActions";
+import {heatmapDataReducer, THeatmapDataState} from "./heatmapData/heatmapDataReducer";
 import {SET_LOADING, SetLoadingAction} from "./loading/loadingActions";
 import {loadingReducer, TLoadingState} from "./loading/loadingReducer";
 import {EAvailability} from "../types/enums/EAvailability.enum";
@@ -11,8 +15,10 @@ import {EModeSwitcher} from "../types/enums/EModeSwitcher.enum";
 
 export type TInitialState = {
   activeAvailability: TActiveAvailabilityState;
+  heatmapLoading: THeatmapLoadingState;
   modeSwitcher: TModeSwitcherState;
   markSwitcher: TMarkSwitcherState;
+  heatmapData: THeatmapDataState;
   loading: TLoadingState;
 }
 
@@ -20,11 +26,17 @@ export const initialState: TInitialState = {
   activeAvailability: {
     activeAvailability: EAvailability.all
   },
+  heatmapLoading: {
+    heatmapLoading: false
+  },
   modeSwitcher: {
     modeSwitcher: EModeSwitcher.polygons
   },
   markSwitcher: {
     markSwitcher: false
+  },
+  heatmapData: {
+    heatmapData: []
   },
   loading: {
     loading: false
@@ -32,8 +44,10 @@ export const initialState: TInitialState = {
 }
 
 type Actions = SetActiveAvailabilityAction
+  | SetHeatmapLoadingAction
   | SetModeSwitcherAction
   | SetMarkSwitcherAction
+  | SetHeatmapDataAction
   | SetLoadingAction
 
 export const rootReducer = (state = initialState, action: Actions): TInitialState => {
@@ -42,6 +56,11 @@ export const rootReducer = (state = initialState, action: Actions): TInitialStat
       return {
         ...state,
         activeAvailability: activeAvailabilityReducer(state.activeAvailability, action)
+      }
+    case SET_HEATMAP_LOADING:
+      return {
+        ...state,
+        heatmapLoading: heatmapLoadingReducer(state.heatmapLoading, action)
       }
     case SET_MODE_SWITCHER:
       return {
@@ -52,6 +71,11 @@ export const rootReducer = (state = initialState, action: Actions): TInitialStat
       return {
         ...state,
         markSwitcher: markSwitcherReducer(state.markSwitcher, action)
+      }
+    case SET_HEATMAP_DATA:
+      return {
+        ...state,
+        heatmapData: heatmapDataReducer(state.heatmapData, action)
       }
     case SET_LOADING:
       return {
