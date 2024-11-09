@@ -248,7 +248,7 @@ class InfrastructureAnalyzer:
         self.no_infra = self.grid[self.grid['count'] == 0]
         logging.info(f"Найдено {len(self.no_infra)} ячеек без инфраструктуры.")
 
-    def prepare_map_data(self, grid_size: int = 100, district_field: str = 'district') -> Dict[str, Any]:
+    def prepare_map_data(self, grid_size: int = 100, district_field: str = 'district', simplification_tolerance: float = 0.001) -> Dict[str, Any]:
         """
         Подготавливает данные для передачи на фронтенд для визуализации карты.
 
@@ -267,6 +267,11 @@ class InfrastructureAnalyzer:
 
         # Идентификация ячеек без инфраструктуры
         self.identify_missing_infrastructure()
+        # Упрощение геометрии перед преобразованием в GeoJSON
+        self.boundary['geometry'] = self.boundary['geometry'].simplify(tolerance=simplification_tolerance,
+                                                                       preserve_topology=True)
+        self.no_infra['geometry'] = self.no_infra['geometry'].simplify(tolerance=simplification_tolerance,
+                                                                       preserve_topology=True)
 
         # Подготовка данных для передачи на фронтенд
         # Конвертируем GeoDataFrames в формат GeoJSON (строки)
