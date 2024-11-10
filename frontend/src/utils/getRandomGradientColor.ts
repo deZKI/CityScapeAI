@@ -1,13 +1,13 @@
-type RGB = { r: number; g: number; b: number };
+import {RGB} from "../types/types/TRGB.type";
 
-function hexToRgb(hex: string): RGB {
+const hexToRgb = (hex: string): RGB => {
   const bigint = parseInt(hex.slice(1), 16);
   return {
     r: (bigint >> 16) & 255,
     g: (bigint >> 8) & 255,
     b: bigint & 255,
   };
-}
+};
 
 const interpolateColor = (color1: RGB, color2: RGB, factor: number): RGB => {
   return {
@@ -15,7 +15,7 @@ const interpolateColor = (color1: RGB, color2: RGB, factor: number): RGB => {
     g: Math.round(color1.g + (color2.g - color1.g) * factor),
     b: Math.round(color1.b + (color2.b - color1.b) * factor),
   };
-}
+};
 
 export const getRandomGradientColor = (): string => {
   const gradient = [
@@ -25,10 +25,21 @@ export const getRandomGradientColor = (): string => {
   ];
 
   const t = Math.random();
-  const color1 = gradient.find((stop) => stop.position <= t);
-  const color2 = gradient.find((stop) => stop.position > t) || color1;
-  const factor = (t - color1!.position) / (color2!.position - color1!.position);
-  const interpolatedColor = interpolateColor(color1!.color, color2!.color, factor);
+
+  let color1 = gradient[0];
+  let color2 = gradient[gradient.length - 1];
+
+  for (let i = 1; i < gradient.length; i++) {
+    if (t <= gradient[i].position) {
+      color1 = gradient[i - 1];
+      color2 = gradient[i];
+
+      break;
+    }
+  }
+
+  const factor = (t - color1.position) / (color2.position - color1.position);
+  const interpolatedColor = interpolateColor(color1.color, color2.color, factor);
 
   return `rgb(${interpolatedColor.r}, ${interpolatedColor.g}, ${interpolatedColor.b})`;
-}
+};

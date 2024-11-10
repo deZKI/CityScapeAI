@@ -2,7 +2,9 @@ import React from 'react';
 import './mapcontainer.css';
 import {PathOptions, LeafletMouseEvent, GeoJSON as LeafletGeoJSON} from 'leaflet';
 import {getRandomGradientColor} from "../../utils/getRandomGradientColor";
+import {getAvailabilityByColor} from "../../utils/getAvailabilityByColor";
 import {EModeSwitcher} from "../../types/enums/EModeSwitcher.enum";
+import {EAvailability} from "../../types/enums/EAvailability.enum";
 import GeoData from "../../assets/geoData/polygons.json";
 import {Feature, FeatureCollection} from "geojson";
 import {TInitialState} from "../../store/reducer";
@@ -11,18 +13,25 @@ import * as L from "leaflet";
 import Map from './Map/Map';
 
 export default function MapContainer() {
+  const activeAvailability = useSelector<TInitialState, EAvailability>(state => state.activeAvailability.activeAvailability);
   const modeSwitcher = useSelector<TInitialState, EModeSwitcher>(state => state.modeSwitcher.modeSwitcher);
   const markSwitcher = useSelector<TInitialState, boolean>(state => state.markSwitcher.markSwitcher);
   const data: FeatureCollection = GeoData as FeatureCollection;
 
-  const style = (feature: Feature | undefined): PathOptions => ({
-    fillColor: !markSwitcher ? getRandomGradientColor() : 'transparent',
-    weight: 2,
-    opacity: 1,
-    color: 'white',
-    dashArray: '3',
-    fillOpacity: 0.7
-  });
+  const style = (feature: Feature | undefined): PathOptions => {
+    const fillColor = !markSwitcher ? getRandomGradientColor() : 'transparent';
+    const availability = getAvailabilityByColor(fillColor);
+    const isVisible = activeAvailability === EAvailability.all || activeAvailability === availability;
+
+    return {
+      fillColor: isVisible ? fillColor : 'transparent',
+      weight: 2,
+      opacity: isVisible ? 1 : 0,
+      color: 'white',
+      dashArray: '3',
+      fillOpacity: isVisible ? 0.7 : 0
+    };
+  };
 
   const createHighlightFeature = (map: L.Map) => (e: LeafletMouseEvent): void => {
     const layer = e.target as LeafletGeoJSON;
