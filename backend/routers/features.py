@@ -5,7 +5,7 @@ import pandas as pd
 import geopandas as gpd
 from fastapi import APIRouter, HTTPException
 
-from models.district_data import DistrictData
+from models.district_data import DistrictData, DistrictBuildingData, BuildingTypeData
 from models.district_request import DistrictRequest
 from models.people_distribution import PeopleDistribution
 from services.infrastructure_analyzer import InfrastructureAnalyzer
@@ -106,4 +106,34 @@ async def load_people():
         return results
 
     data = prepare_district_data()
+    return data
+
+
+@router.get("/load_building_info", response_model=List[DistrictBuildingData])
+async def load_building_info():
+    def prepare_building_info() -> List[DistrictBuildingData]:
+        results = []
+        data_path = 'data/BUILDING.parquet'
+
+        # Чтение данных из Parquet файла
+        data = pd.read_parquet(data_path)
+
+        # Группировка данных по району и типу строения с подсчетом количества зданий
+        district_building_counts = data.groupby(['district', 'BUILDING'])['Building_Count'].sum()
+
+        # Создаем структуру данных по районам
+        district_data = {}
+        for (district, building_type), count in district_building_counts.items():
+            if district not in district_data:
+                district_data[district] = []
+            district_data[district].append(BuildingTypeData(building_type=building_type, building_count=count))
+
+        # Формирование итогового списка районов с вложенной структурой типов строений
+        for district, buildings in district_data.items():
+            results.append(DistrictBuildingData(district_name=district, buildings=buildings))
+
+        return results
+
+    # Получение данных и возврат
+    data = prepare_building_info()
     return data

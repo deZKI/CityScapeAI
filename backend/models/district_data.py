@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel
 
@@ -10,3 +10,12 @@ class DistrictData(BaseModel):
     load_people: Optional[float]
     people_distribution: PeopleDistribution
     geometry: Optional[dict]
+
+class BuildingTypeData(BaseModel):
+    building_type: str
+    building_count: int
+
+# Модель данных для района
+class DistrictBuildingData(BaseModel):
+    district_name: str
+    buildings: List[BuildingTypeData]
