@@ -4,6 +4,8 @@ import {SET_HEATMAP_LOADING, SetHeatmapLoadingAction} from "./heatmapLoading/hea
 import {heatmapLoadingReducer, THeatmapLoadingState} from "./heatmapLoading/heatmapLoadingReducer";
 import {SET_MARK_SWITCHER, SetMarkSwitcherAction} from "./markSwitcher/markSwitcherActions";
 import {SET_MODE_SWITCHER, SetModeSwitcherAction} from "./modeSwitcher/modeSwitcherActions";
+import {SET_POLYGONS_DATA, SetPolygonsDataAction} from "./polygonsData/polygonsDataActions";
+import {polygonsDataReducer, TPolygonsDataState} from "./polygonsData/polygonsDataReducer";
 import {modeSwitcherReducer, TModeSwitcherState} from "./modeSwitcher/modeSwitcherReducer";
 import {markSwitcherReducer, TMarkSwitcherState} from "./markSwitcher/markSwitcherReducer";
 import {SET_HEATMAP_DATA, SetHeatmapDataAction} from "./heatmapData/headmapDataActions";
@@ -18,6 +20,7 @@ export type TInitialState = {
   heatmapLoading: THeatmapLoadingState;
   modeSwitcher: TModeSwitcherState;
   markSwitcher: TMarkSwitcherState;
+  polygonsData: TPolygonsDataState;
   heatmapData: THeatmapDataState;
   loading: TLoadingState;
 }
@@ -35,6 +38,9 @@ export const initialState: TInitialState = {
   markSwitcher: {
     markSwitcher: false
   },
+  polygonsData: {
+    polygonsData: []
+  },
   heatmapData: {
     heatmapData: []
   },
@@ -47,6 +53,7 @@ type Actions = SetActiveAvailabilityAction
   | SetHeatmapLoadingAction
   | SetModeSwitcherAction
   | SetMarkSwitcherAction
+  | SetPolygonsDataAction
   | SetHeatmapDataAction
   | SetLoadingAction
 
@@ -71,6 +78,11 @@ export const rootReducer = (state = initialState, action: Actions): TInitialStat
       return {
         ...state,
         markSwitcher: markSwitcherReducer(state.markSwitcher, action)
+      }
+    case SET_POLYGONS_DATA:
+      return {
+        ...state,
+        polygonsData: polygonsDataReducer(state.polygonsData, action)
       }
     case SET_HEATMAP_DATA:
       return {

@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
+    "d3-scale": "^4.0.2",
     "heatmap.js": "^2.0.5",
     "leaflet": "^1.9.4",
     "leaflet.heat": "^0.2.0",
@@ -26,6 +27,7 @@
     "typescript": "^4.9.5"
   },
   "devDependencies": {
+    "@types/d3-scale": "^4.0.8",
     "@types/geojson": "^7946.0.14",
     "@types/leaflet": "^1.9.14",
     "@types/react": "^18.3.3",
