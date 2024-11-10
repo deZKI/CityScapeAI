@@ -1,9 +1,13 @@
-from typing import Dict, Any
+import json
+from typing import Dict, Any, List
 
 import pandas as pd
+import geopandas as gpd
 from fastapi import APIRouter, HTTPException
 
+from models.district_data import DistrictData
 from models.district_request import DistrictRequest
+from models.people_distribution import PeopleDistribution
 from services.infrastructure_analyzer import InfrastructureAnalyzer
 from services.pedestrian_flow_predictor import PedestrianFlowPredictor
 from services.traffic import fetch_traffic_data
@@ -77,3 +81,29 @@ async def get_infrastructure_map_data(
         return data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/load_people", response_model=List[DistrictData])
+async def load_people():
+    def prepare_district_data() -> List[DistrictData]:
+        results = []
+        data_path = 'data/new_combined_df.parquet'
+        data = pd.read_parquet(data_path)
+        for _, row in data.iterrows():
+            district_info = DistrictData(
+                district=row['district'],
+                load_people=row['load_people'],
+                people_distribution=PeopleDistribution(
+                    children_and_pensioners=row['children_and_pensioners'],
+                    adults_private_transport=row['adults_private_transport'],
+                    adults_public_transport=row['adults_public_transport'],
+                    adults_carsharing_SIM=row['adults_carsharing_SIM']
+                ),
+                geometry=json.loads(row['geometry'].to_json()) if isinstance(row['geometry'],
+                                                                             gpd.geoseries.GeoSeries) else None
+            )
+            results.append(district_info)
+        return results
+
+    data = prepare_district_data()
+    return data
