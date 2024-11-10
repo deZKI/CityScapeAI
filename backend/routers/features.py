@@ -7,7 +7,10 @@ from fastapi import APIRouter, HTTPException
 
 from models.district_data import DistrictData, DistrictBuildingData, BuildingTypeData
 from models.district_request import DistrictRequest
+from models.graph_data_output import GraphDataOutput
 from models.people_distribution import PeopleDistribution
+from models.residential_complex_input import ResidentialComplexInput
+from services.graph_manager import GraphManager
 from services.infrastructure_analyzer import InfrastructureAnalyzer
 from services.pedestrian_flow_predictor import PedestrianFlowPredictor
 from services.traffic import fetch_traffic_data
@@ -87,11 +90,11 @@ async def get_infrastructure_map_data(
 async def load_people():
     def prepare_district_data() -> List[DistrictData]:
         results = []
-        data_path = 'data/new_combined_df.parquet'
+        data_path = 'data/new_combined_df.xlsx'
         data = pd.read_parquet(data_path)
         for _, row in data.iterrows():
             district_info = DistrictData(
-                district=row['district'],
+                district=row['district_ru'],
                 load_people=row['load_people'],
                 people_distribution=PeopleDistribution(
                     children_and_pensioners=row['children_and_pensioners'],
@@ -113,13 +116,13 @@ async def load_people():
 async def load_building_info():
     def prepare_building_info() -> List[DistrictBuildingData]:
         results = []
-        data_path = 'data/BUILDING.parquet'
+        data_path = 'data/BUILDING.xlsx'
 
         # Чтение данных из Parquet файла
         data = pd.read_parquet(data_path)
 
         # Группировка данных по району и типу строения с подсчетом количества зданий
-        district_building_counts = data.groupby(['district', 'BUILDING'])['Building_Count'].sum()
+        district_building_counts = data.groupby(['district_ru', 'BUILDING'])['Building_Count'].sum()
 
         # Создаем структуру данных по районам
         district_data = {}
@@ -137,3 +140,95 @@ async def load_building_info():
     # Получение данных и возврат
     data = prepare_building_info()
     return data
+
+
+graph_manager = GraphManager()
+
+
+@router.post("/add_residential_complex", response_model=GraphDataOutput)
+def add_residential_complex(input_data: ResidentialComplexInput):
+    graph_manager.add_residential_complex(input_data.year, input_data.location)
+    edges_gdf, jc_polygons, new_edges, edges_removed = graph_manager.get_graph_for_year(input_data.year)
+
+    if edges_gdf is None:
+        raise HTTPException(status_code=404, detail=f"Граф для года {input_data.year} не найден")
+
+    # Извлекаем координаты ЖК
+    jc_coordinates = [(polygon.centroid.x, polygon.centroid.y) for polygon in jc_polygons]
+
+    # Извлекаем координаты новых рёбер
+    new_edge_coords = [
+        ((edge['geometry'].coords[0][0], edge['geometry'].coords[0][1]),
+         (edge['geometry'].coords[-1][0], edge['geometry'].coords[-1][1]))
+        for _, _, edge in new_edges
+    ]
+
+    # Извлекаем координаты удалённых рёбер
+    removed_edge_coords = [
+        ((edge['geometry'].coords[0][0], edge['geometry'].coords[0][1]),
+         (edge['geometry'].coords[-1][0], edge['geometry'].coords[-1][1]))
+        for _, _, edge in edges_removed
+    ]
+
+    # Извлекаем координаты всех рёбер
+    edge_coords = [
+        ((edge['geometry'].coords[0][0], edge['geometry'].coords[0][1]),
+         (edge['geometry'].coords[-1][0], edge['geometry'].coords[-1][1]))
+        for _, edge in edges_gdf.iterrows()
+    ]
+
+    return GraphDataOutput(
+        year=input_data.year,
+        edges_count=len(edges_gdf),
+        residential_complex_count=len(jc_polygons),
+        new_edges_count=len(new_edges),
+        removed_edges_count=len(edges_removed),
+        residential_complex_coordinates=jc_coordinates,
+        new_edge_coordinates=new_edge_coords,
+        removed_edge_coordinates=removed_edge_coords,
+        edge_coordinates=edge_coords
+    )
+
+
+@router.get("/graph/{year}", response_model=GraphDataOutput)
+def get_graph_for_year(year: int):
+    edges_gdf, jc_polygons, new_edges, edges_removed = graph_manager.get_graph_for_year(year)
+
+    if edges_gdf is None:
+        raise HTTPException(status_code=404, detail=f"Граф для года {year} не найден")
+
+    # Извлекаем координаты ЖК
+    jc_coordinates = [(polygon.centroid.x, polygon.centroid.y) for polygon in jc_polygons]
+
+    # Извлекаем координаты новых рёбер
+    new_edge_coords = [
+        ((edge['geometry'].coords[0][0], edge['geometry'].coords[0][1]),
+         (edge['geometry'].coords[-1][0], edge['geometry'].coords[-1][1]))
+        for _, _, edge in new_edges
+    ]
+
+    # Извлекаем координаты удалённых рёбер
+    removed_edge_coords = [
+        ((edge['geometry'].coords[0][0], edge['geometry'].coords[0][1]),
+         (edge['geometry'].coords[-1][0], edge['geometry'].coords[-1][1]))
+        for _, _, edge in edges_removed
+    ]
+
+    # Извлекаем координаты всех рёбер
+    edge_coords = [
+        ((edge['geometry'].coords[0][0], edge['geometry'].coords[0][1]),
+         (edge['geometry'].coords[-1][0], edge['geometry'].coords[-1][1]))
+        for _, edge in edges_gdf.iterrows()
+    ]
+
+    return GraphDataOutput(
+        year=year,
+        edges_count=len(edges_gdf),
+        residential_complex_count=len(jc_polygons),
+        new_edges_count=len(new_edges),
+        removed_edges_count=len(edges_removed),
+        residential_complex_coordinates=jc_coordinates,
+        new_edge_coordinates=new_edge_coords,
+        removed_edge_coordinates=removed_edge_coords,
+        edge_coordinates=edge_coords
+    )
