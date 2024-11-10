@@ -1,10 +1,10 @@
 import React from 'react';
 import './availability.css';
-import {TPanelStyles} from "../../../types/types/TPanelStyles.type";
-import Panel from "../Panel";
-import {useSelector} from "react-redux";
-import {TInitialState} from "../../../store/reducer";
 import {EModeSwitcher} from "../../../types/enums/EModeSwitcher.enum";
+import {TPanelStyles} from "../../../types/types/TPanelStyles.type";
+import {TInitialState} from "../../../store/reducer";
+import {useSelector} from "react-redux";
+import Panel from "../Panel";
 
 export default function Availability() {
   const modeSwitcher = useSelector<TInitialState, EModeSwitcher>(state => state.modeSwitcher.modeSwitcher)

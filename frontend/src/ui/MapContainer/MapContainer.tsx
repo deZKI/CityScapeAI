@@ -12,7 +12,11 @@ import {useSelector} from "react-redux";
 import * as L from "leaflet";
 import Map from './Map/Map';
 
-export default function MapContainer() {
+type MapContainerProps = {
+  mapRef: React.MutableRefObject<L.Map | null>;
+};
+
+export default function MapContainer({ mapRef }: MapContainerProps) {
   const activeAvailability = useSelector<TInitialState, EAvailability>(state => state.activeAvailability.activeAvailability);
   const modeSwitcher = useSelector<TInitialState, EModeSwitcher>(state => state.modeSwitcher.modeSwitcher);
   const markSwitcher = useSelector<TInitialState, boolean>(state => state.markSwitcher.markSwitcher);
@@ -66,6 +70,7 @@ export default function MapContainer() {
     <Map
       data={data}
       style={style}
+      mapRef={mapRef}
       modeSwitcher={modeSwitcher}
       markSwitcher={markSwitcher}
       createHighlightFeature={createHighlightFeature}
