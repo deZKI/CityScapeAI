@@ -91,10 +91,10 @@ async def load_people():
     def prepare_district_data() -> List[DistrictData]:
         results = []
         data_path = 'data/new_combined_df.xlsx'
-        data = pd.read_parquet(data_path)
+        data = pd.read_excel(data_path)
         for _, row in data.iterrows():
             district_info = DistrictData(
-                district=row['district_ru'],
+                district=str(row['district_ru']),
                 load_people=row['load_people'],
                 people_distribution=PeopleDistribution(
                     children_and_pensioners=row['children_and_pensioners'],
@@ -119,7 +119,7 @@ async def load_building_info():
         data_path = 'data/BUILDING.xlsx'
 
         # Чтение данных из Parquet файла
-        data = pd.read_parquet(data_path)
+        data = pd.read_excel(data_path)
 
         # Группировка данных по району и типу строения с подсчетом количества зданий
         district_building_counts = data.groupby(['district_ru', 'BUILDING'])['Building_Count'].sum()
