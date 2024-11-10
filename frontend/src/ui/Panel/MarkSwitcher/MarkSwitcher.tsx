@@ -1,5 +1,5 @@
 import React from 'react';
-import './switcher.css';
+import './markswitcher.css';
 import {setMarkSwitcher} from "../../../store/markSwitcher/markSwitcherActions";
 import {TPanelStyles} from "../../../types/types/TPanelStyles.type";
 import {useDispatch, useSelector} from "react-redux";

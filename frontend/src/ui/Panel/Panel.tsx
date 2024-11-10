@@ -1,7 +1,7 @@
 import React from 'react';
 import './panel.css';
-import Title from './Title/Title';
 import {TPanelStyles} from "../../types/types/TPanelStyles.type";
+import Title from './Title/Title';
 import Menu from "./Menu/Menu";
 
 type TProps = {
