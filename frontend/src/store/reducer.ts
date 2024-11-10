@@ -1,5 +1,7 @@
 import {SET_ACTIVE_AVAILABILITY, SetActiveAvailabilityAction} from "./activeAvailability/activeAvailabilityActions";
+import {SET_MARKERS_COORDINATES, SetMarkersCoordinatesAction} from "./markersCoordinates/markersCoordinatesActions";
 import {activeAvailabilityReducer, TActiveAvailabilityState} from "./activeAvailability/activeAvailabilityReducer";
+import {markersCoordinatesReducer, TMarkersCoordinatesState} from "./markersCoordinates/markersCoordinatesReducer";
 import {SET_HEATMAP_LOADING, SetHeatmapLoadingAction} from "./heatmapLoading/heatmapLoadingActions";
 import {heatmapLoadingReducer, THeatmapLoadingState} from "./heatmapLoading/heatmapLoadingReducer";
 import {SET_MARK_SWITCHER, SetMarkSwitcherAction} from "./markSwitcher/markSwitcherActions";
@@ -17,6 +19,7 @@ import {EModeSwitcher} from "../types/enums/EModeSwitcher.enum";
 
 export type TInitialState = {
   activeAvailability: TActiveAvailabilityState;
+  markersCoordinates: TMarkersCoordinatesState;
   heatmapLoading: THeatmapLoadingState;
   modeSwitcher: TModeSwitcherState;
   markSwitcher: TMarkSwitcherState;
@@ -28,6 +31,9 @@ export type TInitialState = {
 export const initialState: TInitialState = {
   activeAvailability: {
     activeAvailability: EAvailability.all
+  },
+  markersCoordinates: {
+    markersCoordinates: []
   },
   heatmapLoading: {
     heatmapLoading: false
@@ -50,6 +56,7 @@ export const initialState: TInitialState = {
 }
 
 type Actions = SetActiveAvailabilityAction
+  | SetMarkersCoordinatesAction
   | SetHeatmapLoadingAction
   | SetModeSwitcherAction
   | SetMarkSwitcherAction
@@ -63,6 +70,11 @@ export const rootReducer = (state = initialState, action: Actions): TInitialStat
       return {
         ...state,
         activeAvailability: activeAvailabilityReducer(state.activeAvailability, action)
+      }
+    case SET_MARKERS_COORDINATES:
+      return {
+        ...state,
+        markersCoordinates: markersCoordinatesReducer(state.markersCoordinates, action)
       }
     case SET_HEATMAP_LOADING:
       return {

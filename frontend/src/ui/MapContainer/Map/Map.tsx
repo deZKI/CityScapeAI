@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import 'leaflet/dist/leaflet.css';
 import './map.css';
-import {MapContainer as LeafletMapContainer, TileLayer, useMap} from 'react-leaflet';
+import {MapContainer as LeafletMapContainer, Marker, Popup, TileLayer, useMap, useMapEvents} from 'react-leaflet';
 import {LeafletMouseEventHandlerFn, PathOptions, StyleFunction} from "leaflet";
 import {EModeSwitcher} from "../../../types/enums/EModeSwitcher.enum";
 import PolygonsLayer from "./PolygonsLayer/PolygonsLayer";
+import {TMarker} from "../../../types/types/TMarker.type";
+import MarkerPopup from "../../MarkerPopup/MarkerPopup";
 import HeatmapLayer from "./HeatmapLayer/HeatmapLayer";
 import {GeoJsonObject} from "geojson";
 import * as L from "leaflet";
@@ -30,6 +32,26 @@ export default function Map({
   createResetHighlight,
   createZoomToFeature,
 }: TProps) {
+  const [markers, setMarkers] = useState<TMarker[]>([]);
+  const markerRefs = useRef<(L.Marker | null)[]>([]);
+
+  const handleFormSubmit = (index: number, data: { name: string; description: string }) => {
+    setMarkers(prevMarkers =>
+      prevMarkers.map((marker, idx) =>
+        idx === index ? { ...marker, formData: data } : marker
+      )
+    );
+  };
+
+  useEffect(() => {
+    // Open the latest popup
+    const latestMarker = markerRefs.current[markers.length - 1];
+    if (latestMarker) {
+      latestMarker.openPopup();
+    }
+  }, [markers]);
+
+
   function SetMapInstance() {
     const map = useMap();
 
@@ -46,10 +68,11 @@ export default function Map({
       center={[55.61244, 37.508423]}
       zoom={9}
       whenReady={() => {
-        if (mapRef.current) {}
+        if (mapRef.current) {
+        }
       }}
     >
-      <SetMapInstance />
+      <SetMapInstance/>
       <TileLayer
         className="leaflet__tiles"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -65,8 +88,22 @@ export default function Map({
           createZoomToFeature={createZoomToFeature}
         />
       ) : (
-        <HeatmapLayer />
+        <HeatmapLayer/>
       )}
+      {markers.map((marker, idx) => (
+        <Marker
+          key={idx}
+          position={marker.position}
+          ref={el => (markerRefs.current[idx] = el)}
+        >
+          <Popup>
+            <MarkerPopup
+              position={marker.position}
+              onSubmit={(formData) => handleFormSubmit(idx, formData)}
+            />
+          </Popup>
+        </Marker>
+      ))}
     </LeafletMapContainer>
   );
 }
