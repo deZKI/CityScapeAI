@@ -92,17 +92,19 @@ async def load_people():
         results = []
         data_path = 'data/new_combined_df.xlsx'
         data = pd.read_excel(data_path)
+
         for _, row in data.iterrows():
-            # Проверяем, что значение district_ru не None и не NaN
+            # Проверяем, что 'district_ru' не None
             if pd.notna(row['district_ru']):
+                # Заменяем NaN значения на None вручную
                 district_info = DistrictData(
                     district=str(row['district_ru']),
-                    load_people=row['load_people'],
+                    load_people=row['load_people'] if not pd.isna(row['load_people']) else None,
                     people_distribution=PeopleDistribution(
-                        children_and_pensioners=row['children_and_pensioners'],
-                        adults_private_transport=row['adults_private_transport'],
-                        adults_public_transport=row['adults_public_transport'],
-                        adults_carsharing_SIM=row['adults_carsharing_SIM']
+                        children_and_pensioners=row['children_and_pensioners'] if not pd.isna(row['children_and_pensioners']) else None,
+                        adults_private_transport=row['adults_private_transport'] if not pd.isna(row['adults_private_transport']) else None,
+                        adults_public_transport=row['adults_public_transport'] if not pd.isna(row['adults_public_transport']) else None,
+                        adults_carsharing_SIM=row['adults_carsharing_SIM'] if not pd.isna(row['adults_carsharing_SIM']) else None
                     ),
                     geometry=json.loads(row['geometry'].to_json()) if isinstance(row['geometry'], gpd.geoseries.GeoSeries) else None
                 )
