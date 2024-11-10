@@ -9,7 +9,7 @@ import Panel from "../Panel";
 
 export default function MarkSwitcher() {
   const markSwitcher = useSelector<TInitialState, boolean>(state => state.markSwitcher.markSwitcher);
-  const styles: TPanelStyles = { top: '16px', right: '16px', padding: '16px', width: '258px' };
+  const styles: TPanelStyles = { top: '16px', right: '16px', padding: '16px', width: '230px' };
   const dispatch = useDispatch();
 
   const handleSwitcherChange = () =>
@@ -29,7 +29,7 @@ export default function MarkSwitcher() {
             onChange={handleSwitcherChange}
           />
           <span className='panel__content__text'>
-            Размещение меток
+            Размещение жк
           </span>
       </div>
     </Panel>

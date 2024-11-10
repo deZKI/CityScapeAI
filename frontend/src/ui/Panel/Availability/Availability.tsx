@@ -17,7 +17,7 @@ export default function Availability() {
 
   return (
     <Panel
-      title={`${modeSwitcher === EModeSwitcher.polygons ? 'Доступность' : 'Плотность значимых объектов'}`}
+      title={`${modeSwitcher === EModeSwitcher.polygons ? 'Доступность' : 'Плотность школ и остановок'}`}
       subtitle='услов.ед' showTitle={true}
       showMenu={false}
       styles={styles}
