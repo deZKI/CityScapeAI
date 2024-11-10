@@ -16,9 +16,9 @@ export default function Menu({ showMenu }: TProps) {
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     const targetElement = event.target as HTMLElement;
-    const IdTargetElement = targetElement.id;
+    const targetElementId = targetElement.id as EAvailability;
 
-    dispatch(setActiveAvailability(IdTargetElement));
+    dispatch(setActiveAvailability(targetElementId));
   }
 
   return (
